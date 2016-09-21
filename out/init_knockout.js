@@ -1,19 +1,3 @@
-System.registerDynamic("npm:babel-runtime@5.8.38/helpers/class-call-check.js", [], true, function ($__require, exports, module) {
-  /* */
-  "use strict";
-
-  var define,
-      global = this || self,
-      GLOBAL = global;
-  exports["default"] = function (instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
-    }
-  };
-
-  exports.__esModule = true;
-  return module.exports;
-});
 System.registerDynamic('npm:process@0.11.9/browser.js', [], true, function ($__require, exports, module) {
     var define,
         global = this || self,
@@ -4399,50 +4383,17 @@ System.registerDynamic("npm:knockout@3.4.0.js", ["npm:knockout@3.4.0/build/outpu
   module.exports = $__require("npm:knockout@3.4.0/build/output/knockout-latest.debug.js");
   return module.exports;
 });
-System.register('app/message_editor/view_model.js', ['npm:babel-runtime@5.8.38/helpers/class-call-check.js', 'npm:knockout@3.4.0.js'], function (_export) {
-  var _classCallCheck, Knockout, MessageEditorViewModel;
-
-  return {
-    setters: [function (_npmBabelRuntime5838HelpersClassCallCheckJs) {
-      _classCallCheck = _npmBabelRuntime5838HelpersClassCallCheckJs['default'];
-    }, function (_npmKnockout340Js) {
-      Knockout = _npmKnockout340Js['default'];
-    }],
-    execute: function () {
-      'use strict';
-
-      MessageEditorViewModel = function MessageEditorViewModel(params) {
-        _classCallCheck(this, MessageEditorViewModel);
-
-        console.log(params);
-        this.text = Knockout.observable(params.initialText || '');
-      };
-
-      _export('default', MessageEditorViewModel);
-    }
-  };
-});
-System.register('app/message_editor/component.js', ['npm:knockout@3.4.0.js', 'app/message_editor/view_model.js'], function (_export) {
+System.register('app/init_knockout.js', ['npm:knockout@3.4.0.js'], function (_export) {
   'use strict';
 
-  var Knockout, ViewModel;
+  var Knockout;
   return {
     setters: [function (_npmKnockout340Js) {
       Knockout = _npmKnockout340Js['default'];
-    }, function (_appMessage_editorView_modelJs) {
-      ViewModel = _appMessage_editorView_modelJs['default'];
     }],
     execute: function () {
-
-      (function () {
-        'use strict';
-
-        Knockout.components.register('message_editor', {
-          viewModel: ViewModel,
-          template: '\n      Message: <input data-bind="value: text" />\n      (length: <span data-bind="text: text().length"></span>)'
-        });
-      })();
+      Knockout.applyBindings();
     }
   };
 });
-//# sourceMappingURL=component.js.map
+//# sourceMappingURL=init_knockout.js.map
