@@ -1,4 +1,2 @@
 #!/bin/bash
-./bin/start &
-npm test
-./bin/stop
+./node_modules/.bin/chimp
