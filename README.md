@@ -4,8 +4,8 @@
 
 ## Running the App
 
-Since the application is a static page, it's suggested to compile as you
-develop and test via loading the static `/index.html`.
+`npm start` will run `server.js`, making the application accessible on
+`localhost:8080`.
 
 ### Adding Changes
 

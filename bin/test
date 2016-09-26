@@ -1,0 +1,4 @@
+#!/bin/bash
+htmlhint index.html app
+jshint app
+./node_modules/.bin/cucumber-js
