@@ -1,3 +1,5 @@
 test:
   override:
-    - ./bin/circle_c_i/test
+    - htmlhint index.html app
+    - jshint app
+    - ./node_modules/.bin/cucumber-js
