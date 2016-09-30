@@ -7,12 +7,12 @@
 `npm start` will run `server.js`, making the application accessible on
 `localhost:8080`.
 
-### Adding Changes
+## Adding Changes
 
 Be sure to compile your source files into `out/` so it can be referenced when
 the source file is imported via `System.import(...)`:
 `jspm bundle app/[file] out/[file]`
 
-### Testing Changes
+## Testing Changes
 
 `npm test` will handle all code quality and feature specs.
