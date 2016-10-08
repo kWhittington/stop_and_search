@@ -6738,7 +6738,6 @@ System.register('app/traffic_stop_count_by_month/request.js', ['npm:babel-runtim
 
           _classCallCheck(this, TrafficStopCountByMonthRequest);
 
-          console.log('Index: ' + index);
           this.month = new Moment().month(index);
         }
 
@@ -6798,50 +6797,6 @@ System.register('app/traffic_stop_count_by_month/request.js', ['npm:babel-runtim
       })();
 
       _export('default', TrafficStopCountByMonthRequest);
-    }
-  };
-});
-System.register('app/traffic_stop_count_by_month.js', ['npm:babel-runtime@5.8.38/helpers/create-class.js', 'npm:babel-runtime@5.8.38/helpers/class-call-check.js', 'app/traffic_stop_count_by_month/request.js'], function (_export) {
-  var _createClass, _classCallCheck, Request, TrafficStopCountByMonth;
-
-  return {
-    setters: [function (_npmBabelRuntime5838HelpersCreateClassJs) {
-      _createClass = _npmBabelRuntime5838HelpersCreateClassJs['default'];
-    }, function (_npmBabelRuntime5838HelpersClassCallCheckJs) {
-      _classCallCheck = _npmBabelRuntime5838HelpersClassCallCheckJs['default'];
-    }, function (_appTraffic_stop_count_by_monthRequestJs) {
-      Request = _appTraffic_stop_count_by_monthRequestJs['default'];
-    }],
-    execute: function () {
-      'use strict';
-
-      TrafficStopCountByMonth = (function () {
-        function TrafficStopCountByMonth() {
-          var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-
-          var index = _ref.index;
-
-          _classCallCheck(this, TrafficStopCountByMonth);
-
-          this.request = new Request({ index: index });
-        }
-
-        _createClass(TrafficStopCountByMonth, [{
-          key: 'count',
-          value: function count() {
-            return this.request.count();
-          }
-        }, {
-          key: 'request',
-          value: function request() {
-            return this.request;
-          }
-        }]);
-
-        return TrafficStopCountByMonth;
-      })();
-
-      _export('default', TrafficStopCountByMonth);
     }
   };
 });
@@ -10154,74 +10109,75 @@ System.register('app/month.js', ['npm:babel-runtime@5.8.38/helpers/create-class.
     }
   };
 });
-System.register('app/current_month_traffic_stop_count/view_model.js', ['npm:babel-runtime@5.8.38/helpers/create-class.js', 'npm:babel-runtime@5.8.38/helpers/class-call-check.js', 'app/traffic_stop_count_by_month.js', 'app/month.js'], function (_export) {
-  var _createClass, _classCallCheck, TrafficStopCountByMonth, Month, CurrentMonthTrafficStopCount;
+System.register('app/traffic_stop_count_by_month/view_model.js', ['npm:babel-runtime@5.8.38/helpers/create-class.js', 'npm:babel-runtime@5.8.38/helpers/class-call-check.js', 'npm:knockout@3.4.0.js', 'app/traffic_stop_count_by_month/request.js', 'app/month.js'], function (_export) {
+  var _createClass, _classCallCheck, Knockout, Request, Month, TrafficStopCountByMonthViewModel;
 
   return {
     setters: [function (_npmBabelRuntime5838HelpersCreateClassJs) {
       _createClass = _npmBabelRuntime5838HelpersCreateClassJs['default'];
     }, function (_npmBabelRuntime5838HelpersClassCallCheckJs) {
       _classCallCheck = _npmBabelRuntime5838HelpersClassCallCheckJs['default'];
-    }, function (_appTraffic_stop_count_by_monthJs) {
-      TrafficStopCountByMonth = _appTraffic_stop_count_by_monthJs['default'];
+    }, function (_npmKnockout340Js) {
+      Knockout = _npmKnockout340Js['default'];
+    }, function (_appTraffic_stop_count_by_monthRequestJs) {
+      Request = _appTraffic_stop_count_by_monthRequestJs['default'];
     }, function (_appMonthJs) {
       Month = _appMonthJs['default'];
     }],
     execute: function () {
       'use strict';
 
-      CurrentMonthTrafficStopCount = (function () {
-        function CurrentMonthTrafficStopCount() {
-          _classCallCheck(this, CurrentMonthTrafficStopCount);
+      TrafficStopCountByMonthViewModel = (function () {
+        function TrafficStopCountByMonthViewModel() {
+          var _this = this;
+
+          _classCallCheck(this, TrafficStopCountByMonthViewModel);
+
+          this.selectableMonths = Knockout.observableArray(["Januaray", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]);
+
+          this.selectedMonth = Knockout.observable(Month.current().toString());
+          this.count = Knockout.computed(function () {
+            return new Request({ index: _this.selectedMonth() }).count();
+          });
         }
 
-        _createClass(CurrentMonthTrafficStopCount, [{
-          key: 'count',
-          value: function count() {
-            return new TrafficStopCountByMonth({ index: this.currentMonth().toInteger() }).count();
-          }
-        }, {
-          key: 'currentMonth',
-          value: function currentMonth() {
-            return Month.current();
+        _createClass(TrafficStopCountByMonthViewModel, [{
+          key: 'selectableMonths',
+          value: function selectableMonths() {
+            return this.selectableMonths;
           }
         }, {
           key: 'title',
           value: function title() {
-            return "Traffic Stops Made This Month: ";
-          }
-        }, {
-          key: 'toString',
-          value: function toString() {
-            return this.title() + this.count();
+            return "Traffic Stops Made ";
           }
         }]);
 
-        return CurrentMonthTrafficStopCount;
+        return TrafficStopCountByMonthViewModel;
       })();
 
-      _export('default', CurrentMonthTrafficStopCount);
+      _export('default', TrafficStopCountByMonthViewModel);
     }
   };
 });
-System.register('app/current_month_traffic_stop_count/component.js', ['npm:knockout@3.4.0.js', 'app/current_month_traffic_stop_count/view_model.js'], function (_export) {
+System.register('app/traffic_stop_count_by_month/component.js', ['npm:knockout@3.4.0.js', 'app/traffic_stop_count_by_month/view_model.js'], function (_export) {
   'use strict';
 
   var Knockout, ViewModel;
   return {
     setters: [function (_npmKnockout340Js) {
       Knockout = _npmKnockout340Js['default'];
-    }, function (_appCurrent_month_traffic_stop_countView_modelJs) {
-      ViewModel = _appCurrent_month_traffic_stop_countView_modelJs['default'];
+    }, function (_appTraffic_stop_count_by_monthView_modelJs) {
+      ViewModel = _appTraffic_stop_count_by_monthView_modelJs['default'];
     }],
     execute: function () {
 
       (function () {
         'use strict';
 
-        Knockout.components.register('current_month_traffic_stop_count', {
+        Knockout.components.register('traffic_stop_count_by_month', {
           viewModel: ViewModel,
-          template: '<h2 data-bind="text: toString()"></h2>'
+          template: '\n      <div class="row">\n        <div class="five columns">\n          <h2 data-bind="text: title()"></h2>\n        </div>\n        <div class="two columns">\n          <select data-bind="\n            options: selectableMonths(),\n            value: selectedMonth">\n          </select>\n        </div>\n        <div class="five columns">\n          <h2 data-bind="text: count"></h2>\n        </div>\n      </div>'
         });
       })();
     }
