@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Grid } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
-import AppHeader from './AppHeader.js'
+import { Grid } from 'semantic-ui-react'
 import './App.css'
+import AppBody from './AppBody.js'
+import AppHeader from './AppHeader.js'
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return(
       <Grid container>
@@ -16,6 +17,8 @@ class App extends Component {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
+            <AppBody>
+            </AppBody>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
@@ -26,5 +29,3 @@ class App extends Component {
     )
   }
 }
-
-export default App

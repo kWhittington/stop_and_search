@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Header } from 'semantic-ui-react'
 
-class AppHeader extends Component {
+export default class AppHeader extends Component {
   render() {
     return(
       <Header as='h1' className='AppHeader'>
@@ -9,5 +9,3 @@ class AppHeader extends Component {
       </Header>)
   }
 }
-
-export default AppHeader
