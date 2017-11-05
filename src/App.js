@@ -11,14 +11,12 @@ export default class App extends Component {
       <Grid container>
         <Grid.Row>
           <Grid.Column>
-            <AppHeader>
-            </AppHeader>
+            <AppHeader/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <AppBody>
-            </AppBody>
+            <AppBody/>
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>
