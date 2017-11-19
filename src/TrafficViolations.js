@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Container, Dropdown, Grid, Header } from 'semantic-ui-react'
-import Validate from './Validate'
+import { Container, Grid, Header } from 'semantic-ui-react'
+import SearchableDropdown from './SearchableDropdown'
 
 export default class TrafficViolations extends Component {
   render() {
@@ -14,8 +14,7 @@ export default class TrafficViolations extends Component {
       <Container className='TrafficViolations'>
         <Header as='h2' icon='car' content='Traffic Violations'/>
         <Grid container>
-          <Dropdown placeholder='Day' search selection
-            options={ this.datalist }/>
+          <SearchableDropdown datalist={this.datalist} placeholder='Day'/>
         </Grid>
       </Container>)
   }
