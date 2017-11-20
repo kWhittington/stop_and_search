@@ -2,7 +2,7 @@ import Immutable from 'immutable'
 import Moment from 'moment'
 
 export default class Date {
-  static daysIn({ years, month } = {}) {
+  static daysIn({ year, month } = {}) {
     let moment = new Moment({ year: year })
     moment.month(month)
     return Array(moment.daysInMonth()).fill()
@@ -46,15 +46,15 @@ export default class Date {
   }
 
   constructor({ year, month, day } = {}) {
-    if (typeof year != 'undefined') {
+    if (typeof year !== 'undefined') {
       this.year = year
     }
 
-    if (typeof month != 'undefined') {
+    if (typeof month !== 'undefined') {
       this.month = month
     }
 
-    if (typeof day != 'undefined') {
+    if (typeof day !== 'undefined') {
       this.day = day
     }
   }
