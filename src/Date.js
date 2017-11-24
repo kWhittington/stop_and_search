@@ -46,17 +46,9 @@ export default class Date {
   }
 
   constructor({ year, month, day } = {}) {
-    if (typeof year !== 'undefined') {
-      this.year = year
-    }
-
-    if (typeof month !== 'undefined') {
-      this.month = month
-    }
-
-    if (typeof day !== 'undefined') {
-      this.day = day
-    }
+    if (typeof year !== 'undefined') this.year = year
+    if (typeof month !== 'undefined') this.month = month
+    if (typeof day !== 'undefined') this.day = day
   }
 
   get day() {
@@ -102,6 +94,10 @@ export default class Date {
 
   toMoment() {
     return new Moment({ year: this.year, month: this.month - 1, day: this.day })
+  }
+
+  toString() {
+    return `<Date year: ${this.year}, month: ${this.month}, day: ${this.day}>`
   }
 
   get year() {
