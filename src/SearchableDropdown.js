@@ -4,21 +4,31 @@ import OptionalLabel from './OptionalLabel'
 
 
 export default class SearchableDropdown extends Component {
+  // props.options must be in
+  // [{ key: 'AL', value: 'AL', text: 'Alabama' }, ...] format
   constructor(props) {
     super(props)
     this.state = {
-      datalist: props.datalist,
       label: props.label,
-      placeholder: props.placeholder
+      options: props.options,
+      placeholder: props.placeholder,
+      value: props.value
     }
-  }
-
-  get datalist() {
-    return this.state.datalist
   }
 
   get label() {
     return this.state.label
+  }
+
+  // Needs to be binded to `this`
+  // (see https://reactjs.org/docs/handling-events.html).
+  onChange = (event, data) => {
+    if (typeof this.props.onChange !== 'function') return
+    this.props.onChange(event, data)
+  }
+
+  get options() {
+    return this.state.options
   }
 
   get placeholder() {
@@ -29,8 +39,10 @@ export default class SearchableDropdown extends Component {
     return(
       <div className='ui field'>
         <OptionalLabel text={this.label}/>
-        <Dropdown placeholder={this.placeholder} search selection
-          options={this.datalist}/>
+        <Dropdown
+          onChange={this.onChange}
+          options={this.options} placeholder={this.placeholder}
+          search selection value={this.props.value} />
       </div>)
   }
 }
