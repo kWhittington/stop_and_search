@@ -3,7 +3,12 @@ import React, { Component } from 'react'
 export default class OptionalLabel extends Component {
   constructor(props) {
     super(props)
-    this.state = { text: props.text }
+    this.state = { for: props.for, text: props.text }
+  }
+
+  get for() {
+    if (this.state.for) return this.state.for
+    return ''
   }
 
   get text() {

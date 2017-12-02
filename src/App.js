@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
+import 'normalize.css/normalize.css'
 import 'semantic-ui-css/semantic.min.css'
-import { Grid } from 'semantic-ui-react'
 import './App.css'
+import React, { Component } from 'react'
+import { Grid } from 'semantic-ui-react'
 import AppBody from './AppBody.js'
 import AppHeader from './AppHeader.js'
 
