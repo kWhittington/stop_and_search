@@ -5,6 +5,7 @@ import React, { Component } from 'react'
 import { Grid } from 'semantic-ui-react'
 import AppBody from './AppBody.js'
 import AppHeader from './AppHeader.js'
+import AppFooter from './AppFooter.js'
 
 export default class App extends Component {
   render() {
@@ -22,6 +23,7 @@ export default class App extends Component {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
+            <AppFooter/>
           </Grid.Column>
         </Grid.Row>
       </Grid>
