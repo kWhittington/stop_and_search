@@ -92,6 +92,10 @@ export default class Date {
     return new Date({ year: this.year, month: this.month, day: 1 })
   }
 
+  toJSDate() {
+    return this.toMoment().toDate()
+  }
+
   toMoment() {
     return new Moment({ year: this.year, month: this.month - 1, day: this.day })
   }
