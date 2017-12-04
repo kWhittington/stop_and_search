@@ -5,11 +5,18 @@ import { DateRangeInput } from '@blueprintjs/datetime'
 import React, { Component } from 'react'
 import { Container, Form, Grid, Header, Label } from 'semantic-ui-react'
 import Date from './Date'
+import TrafficViolationsInRangeRequest from './TrafficViolationsInRangeRequest'
 
 export default class TrafficViolations extends Component {
   constructor(props) {
     super(props)
     this.state = { endDate: Date.now(), startDate: Date.startOfMonth() }
+  }
+
+  get count() {
+    if (!this.startDate || !this.endDate) { return 0 }
+    return new TrafficViolationsInRangeRequest(
+      { startDate: this.startDate, endDate: this.endDate }).count
   }
 
   get endDate() {
@@ -61,7 +68,7 @@ export default class TrafficViolations extends Component {
             </Grid.Column>
             <Grid.Column textAlign='center' verticalAlign='middle' width={6}>
               <div className='ui huge horizontal statistic'>
-                <div className='value'>42</div>
+                <div className='value'>{this.count}</div>
                 <div className='label'>Total</div>
               </div>
             </Grid.Column>
