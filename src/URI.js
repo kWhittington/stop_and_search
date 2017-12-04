@@ -1,3 +1,3 @@
 import URI from 'urijs'
 
-export default class URI
+export default URI
