@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@blueprintjs/datetime": "^1.24.0",
     "es6-error": "^4.0.2",
     "immutable": "^3.8.2",
     "moment": "^2.19.1",
     "normalize.css": "^7.0.0",
     "react": "^16.0.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14",
     "semantic-ui-css": "^2.2.12",
