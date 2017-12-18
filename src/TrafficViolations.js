@@ -10,13 +10,14 @@ import TrafficViolationsInRangeRequest from './TrafficViolationsInRangeRequest'
 export default class TrafficViolations extends Component {
   constructor(props) {
     super(props)
-    this.state = { endDate: Date.now(), startDate: Date.startOfMonth() }
+    this.state = {
+      count: '...', endDate: Date.now(), startDate: Date.startOfMonth() }
+    this.updateCount()
   }
 
   get count() {
-    if (!this.startDate || !this.endDate) { return 0 }
-    return new TrafficViolationsInRangeRequest(
-      { startDate: this.startDate, endDate: this.endDate }).count
+    if (!this.startDate || !this.endDate) { return '...' }
+    return this.state.count
   }
 
   get endDate() {
@@ -41,6 +42,16 @@ export default class TrafficViolations extends Component {
 
   get startDate() {
     return this.state.startDate
+  }
+
+  updateCount() {
+    new TrafficViolationsInRangeRequest({
+      startDate: this.startDate, endDate: this.endDate,
+      onSuccess: (rows) => {
+        this.setState((prevState, props) => ({
+          count: rows[0].count_stopdescription
+        }))
+      }})
   }
 
   render() {

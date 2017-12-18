@@ -1,24 +1,17 @@
+import SODA from 'soda-js'
 import URI from './URI'
 
 export default class TrafficViolationsInRangeRequest {
-  constructor({ endDate, startDate } = {}) {
+  constructor({ endDate, onError, onSuccess, startDate } = {}) {
     this.endDate = endDate
+    this.error = (error) => {
+      if (typeof onError === 'function') { onError(error) }
+    }
     this.startDate = startDate
-  }
-
-  get count() {
-    if (!this.isValid()) { return 0 }
-    try {
-      let request = new XMLHttpRequest()
-      request.open('get', this.uri.normalize(), false)
-      request.setRequestHeader('X-App-Token', '3QZx3OfxcculHVue3kYIPrrKZ')
-      request.setRequestHeader('Accept', 'application/json')
-      request.send()
-      return JSON.parse(request.response)[0].count_stopdescription
+    this.success = (rows) => {
+      if (typeof onSuccess === 'function') { onSuccess(rows) }
     }
-    catch (e) {
-      return 0
-    }
+    this.getRows()
   }
 
   dbFormat() {
@@ -33,6 +26,23 @@ export default class TrafficViolationsInRangeRequest {
     return this.endDate.format(this.dbFormat())
   }
 
+  getRows() {
+    if (!this.isValid()) { return }
+    this.query.getRows().on('success', this.success).on('error', this.error)
+  }
+
+  get nolaDataQuery() {
+    return new SODA.Consumer('data.nola.gov').query()
+      .withDataset('nfft-hjwi', { apiToken: '3QZx3OfxcculHVue3kYIPrrKZ' })
+  }
+
+  get query() {
+    return this.nolaDataQuery.where({ stopdescription: 'TRAFFIC VIOLATION' })
+      .where(`eventdate between '${this.eventdateRangeBeginning()}' and ` +
+             `'${this.eventdateRangeEnd()}'`)
+      .select('count(stopdescription)')
+  }
+
   isValid() {
     return this.startDate.isValid() && this.endDate.isValid()
   }
@@ -42,11 +52,6 @@ export default class TrafficViolationsInRangeRequest {
   }
 
   get uri() {
-    return URI('https://data.nola.gov/resource/nfft-hjwi')
-      .addQuery({ stopdescription: 'TRAFFIC VIOLATION' })
-      .addQuery({ $where: 'eventdate between ' +
-                          `'${this.eventdateRangeBeginning()}' and ` +
-                          `'${this.eventdateRangeEnd()}'` })
-      .addQuery({ $select: "count(stopdescription)"})
+    return URI(this.query.getURL())
   }
 }
