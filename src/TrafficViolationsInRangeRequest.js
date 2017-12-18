@@ -15,18 +15,6 @@ export default class TrafficViolationsInRangeRequest {
     this.getRows()
   }
 
-  dbFormat() {
-    return 'YYYY-MM-DDTHH:mm:ss'
-  }
-
-  eventdateRangeBeginning() {
-    return this.startDate.format(this.dbFormat())
-  }
-
-  eventdateRangeEnd() {
-    return this.endDate.format(this.dbFormat())
-  }
-
   getRows() {
     if (!this.isValid()) { return }
     this.query.getRows().on('success', this.success).on('error', this.error)
@@ -45,8 +33,8 @@ export default class TrafficViolationsInRangeRequest {
 
   get query() {
     return this.nolaDataQuery.where({ stopdescription: 'TRAFFIC VIOLATION' })
-      .where(`eventdate between '${this.eventdateRangeBeginning()}' and ` +
-             `'${this.eventdateRangeEnd()}'`)
+      .where(`eventdate between '${this.startDate.toDBString()}' and ` +
+             `'${this.endDate.toDBString()}'`)
   }
 
   toString() {

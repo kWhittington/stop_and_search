@@ -92,6 +92,10 @@ export default class Date {
     return new Date({ year: this.year, month: this.month, day: 1 })
   }
 
+  toDBString() {
+    return this.format('YYYY-MM-DDTHH:mm:ss')
+  }
+
   toJSDate() {
     return this.toMoment().toDate()
   }
