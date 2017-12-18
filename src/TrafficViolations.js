@@ -12,7 +12,7 @@ export default class TrafficViolations extends Component {
     super(props)
     this.state = {
       count: '...', endDate: Date.now(), startDate: Date.startOfMonth() }
-    this.updateCount()
+    this.updateCount(this.startDate, this.endDate)
   }
 
   get count() {
@@ -31,6 +31,7 @@ export default class TrafficViolations extends Component {
       date && new Date({ year: date.getFullYear(), month: date.getMonth() + 1,
         day: date.getDate() })
     ))
+    this.updateCount(newStartDate, newEndDate)
 
     this.setState({
       endDate: newEndDate,
@@ -44,13 +45,11 @@ export default class TrafficViolations extends Component {
     return this.state.startDate
   }
 
-  updateCount() {
+  updateCount(startDate, endDate) {
     new TrafficViolationsInRangeRequest({
-      startDate: this.startDate, endDate: this.endDate,
+      startDate: startDate, endDate: endDate,
       onSuccess: (rows) => {
-        this.setState((prevState, props) => ({
-          count: rows[0].count_stopdescription
-        }))
+        this.setState((prevState, props) => ({ count: rows.length }))
       }})
   }
 
