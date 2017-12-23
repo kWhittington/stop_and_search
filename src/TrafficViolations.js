@@ -5,7 +5,7 @@ import { DateRangeInput } from '@blueprintjs/datetime'
 import React, { Component } from 'react'
 import { Container, Form, Grid, Header, Label } from 'semantic-ui-react'
 import Date from './Date'
-import TrafficViolationsInRangeRequest from './TrafficViolationsInRangeRequest'
+import TVCountInRangeRequest from './TrafficViolationCountInRangeRequest'
 
 export default class TrafficViolations extends Component {
   constructor(props) {
@@ -46,11 +46,11 @@ export default class TrafficViolations extends Component {
   }
 
   updateCount(startDate, endDate) {
-    new TrafficViolationsInRangeRequest({
+    new TVCountInRangeRequest({
       startDate: startDate, endDate: endDate,
-      onSuccess: (rows) => {
-        this.setState((prevState, props) => ({ count: rows.length }))
-      }})
+      onSuccess: (count) => {
+        this.setState((prevState, props) => ({ count: count }))
+      }}).submit()
   }
 
   render() {
